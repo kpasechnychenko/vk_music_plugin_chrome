@@ -67,7 +67,6 @@ var observer = new window.WebKitMutationObserver(function (mutations, observer) 
                }
                filename += ".mp3";
 
-               console.log(filename);
                chrome.runtime.sendMessage({ action: "downloadFile", url: finalURL, filename: filename });
                e.stopPropagation();
                e.preventDefault();
@@ -83,4 +82,92 @@ observer.observe(document, {
 });
 
 
+function bind_additional_events() {
+
+    $("body").on("click", ".play_new", function () {
+        var message = { action: "player_refresh_view" };
+        var context = $(this);
+
+        if (context.hasClass("playing")) {
+            message.player_action = "play";
+        } else {
+            message.player_action = "pause";
+        };
+
+        message.link = context.closest(".area").find("input").val();
+        message.song_id = context.closest(".audio :first-child").attr('name');
+
+        var info = context.closest(".area").find('.title_wrap');
+        message.artist = (info.find('a').html()).replace("<span>", "").replace("</span>");
+
+        if (info.find('.title a').length > 0) {
+            message.title = (info.find('.title a').html()).replace("<span>", "").replace("</span>");
+        }
+        else {
+            message.title = (info.find('.title').html()).replace("<span>", "").replace("</span>");
+        }
+
+        chrome.runtime.sendMessage(message);
+    });
+
+
+    $("#ac_play, #ac_prev, #ac_next").on("click", function () {
+        var message = { action: "player_refresh_view" };
+        var context = $(this);
+        
+        if ($("#ac_play").hasClass("playing")) {
+            message.player_action = "play";
+        } else {
+            message.player_action = "pause";
+        };
+
+        message.link = "";
+        message.song_id = "";
+
+        message.artist = context.closest(".ac_wrap").find('#ac_performer').html();
+        message.title = context.closest(".ac_wrap").find('#ac_title').html();
+        console.log(message);
+        chrome.runtime.sendMessage(message);
+    });
+
+    $("#ac_vol_line").mutate("width", function () {
+        var message = { action: "player_volume_changed" };
+        message.value = this.selector.width() / $("#ac_vol").width();
+        chrome.runtime.sendMessage(message);
+    });
+
+    $("#ac_pr_line").mutate("width", function () {
+        var message = { action: "player_position_changed" };
+        message.value = this.selector.width() / $("#ac_pr").width();
+        chrome.runtime.sendMessage(message);
+
+        message = { action: "player_refresh_view" };
+        var context = this.selector;
+
+        if ($("#ac_play").hasClass("playing")) {
+            message.player_action = "play";
+        } else {
+            message.player_action = "pause";
+        };
+
+        message.link = context.closest(".area").find("input").val();
+        message.song_id = context.closest(".audio :first-child").attr('name');
+
+        message.artist = context.closest(".ac_wrap").find('#ac_performer').html();
+        message.title = context.closest(".ac_wrap").find('#ac_title').html();
+
+        chrome.runtime.sendMessage(message);
+        
+    });
+
+    $("#ac_load_line").mutate("width", function () {
+        var message = { action: "player_load_changed" };
+        message.value = this.selector.width() / $("#ac_pr").width();
+        chrome.runtime.sendMessage(message);
+        
+    });
+
+};
+
 find_audios();
+bind_additional_events();

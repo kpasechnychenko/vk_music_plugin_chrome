@@ -118,6 +118,49 @@ function bind_events() {
     
 };
 
+
+function vk_player() {
+
+    this.current_link = "";
+    this.current_song_id = "";
+
+    this.view_player_refresh_view = function (request) {
+        if (request.player_action == "play") {
+            $("#ac_play").addClass("playing");
+        } else {
+            $("#ac_play").removeClass("playing");
+        };
+
+        $("#ac_performer").html(request.artist);
+        $("#ac_title").html(request.title);
+        this.current_link = request.link;
+        this.current_song_id = request.song_id;
+    };
+
+
+    this.view_player_volume_changed = function (request) {
+        $("#ac_vol_line").width(request.value * $("#ac_vol").width());
+    };
+
+    this.view_player_position_changed = function (request) {
+        $("#ac_pr_line").width(request.value * $("#ac_pr").width());
+    };
+
+    this.view_player_load_changed = function (request) {
+        $("#ac_load_line").width(request.value * $("#ac_pr").width());
+    };
+};
+
+
 document.addEventListener('DOMContentLoaded', function () {
     bind_events();
+    window.v_player = new vk_player();
 });
+
+
+chrome.runtime.onMessage.addListener(
+  function (request, sender, sendResponse) {
+      if (typeof (window.v_player) != 'undefined' && request.action.indexOf("view_") == 0) {
+          window.v_player[request.action](request);
+      }
+  });

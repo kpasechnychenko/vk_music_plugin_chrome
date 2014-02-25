@@ -11,7 +11,11 @@
 		"*://vk.com/*"
 	],
       "css": ["onpage-styles.css"],
-      "js": ["js/jquery-1.11.0.min.js", "js/jquery-migrate-1.2.1.min.js", "js/vk-music-onpage-kp.js"]
+      "js": ["js/jquery-1.11.0.min.js", 
+	  "js/jquery-migrate-1.2.1.min.js", 
+	  "js/mutate/mutate.events.js",
+	  "js/mutate/mutate.min.js",
+	  "js/vk-music-onpage-kp.js"]
 	}
   ],
 
