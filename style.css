@@ -1,0 +1,41 @@
+#ac_srch .srch {
+    height: 12px;
+    width: 12px;
+    background-image: url('images/search-icon-small.png');
+    margin: 0;
+    float: left;
+}
+
+#ac_plst .plst {
+    height: 13px;
+    width: 13px;
+    background-image: url('images/playlist-small.png');
+    margin: 0;
+    float: left;
+}
+
+.audio_search_pl{
+    width: 100% !important;
+    height: 24px !important;
+}
+
+.audio_search_placeholder {
+    width: 100%;
+}
+
+.audio_list_placeholder {
+    width: 90% !important;
+}
+
+.audio_song_placeholder {
+    width: 100% !important;
+    height: 34px;
+}
+
+.audio_song_duration {
+    margin-top: 14px !important;
+}
+
+.player_wrap_dsc {
+    width: 421px !important;
+}
