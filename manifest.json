@@ -13,17 +13,10 @@
       "css": ["onpage-styles.css"],
       "js": ["js/jquery-1.11.0.min.js", 
 	  "js/jquery-migrate-1.2.1.min.js", 
-	  "js/mutate/mutate.events.js",
-	  "js/mutate/mutate.min.js",
 	  "js/vk-music-onpage-kp.js"]
 	}
   ],
 
-  "browser_action": {
-    "default_icon": "images/icon.png",
-    "default_popup": "index.html"
-  },
-  
   "web_accessible_resources": [
     "images/*.*",
     "js/jquery-1.11.0.min.js", 
@@ -42,8 +35,6 @@
 	"*://*.vk.com/*",
 	"*://*.vk.me/*",
 	"downloads",
-	//"background",
-	"webRequest",
 	"tabs"
   ]
 }
