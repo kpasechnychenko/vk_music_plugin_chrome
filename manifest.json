@@ -2,7 +2,7 @@
   "manifest_version": 2,
 
   "name": "vk music player",
-  "description": "This extension allows to listen music from vk.com",
+  "description": "This extension allows to download music from vk.com",
   "version": "1.0",
 
   "content_scripts": [
