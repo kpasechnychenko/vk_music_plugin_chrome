@@ -13,6 +13,7 @@ function find_audios() {
     else{
         play_btns.closest(".play_btn").next().each(function (i, el) {
             $(el).width($(el).width() - 18);
+            //$(el).find(".title_wrap").width($(el).width() - $(el).find(".duration").width() - 18);
         });
     }
 
@@ -49,6 +50,7 @@ var observer = new window.WebKitMutationObserver(function (mutations, observer) 
            else {
                var info = btns.closest(".play_btn").next();
                $(info).width($(info).width() - 18);
+               $(info).find(".title_wrap").width($(info).width() - $(info).find(".duration").width() - 18);
            }
 
            
